@@ -1,16 +1,126 @@
-# React + Vite
+# ProjectSuite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, full-stack portfolio management platform built with React and Supabase. Showcase projects dynamically with a beautiful UI and manage content through a powerful admin panel.
 
-Currently, two official plugins are available:
+## 🚀 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Dynamic Project Gallery** with category filtering and search
+- **Admin Dashboard** with full CRUD operations
+- **Edit Mode** for quick project updates
+- **Dual Image Support** - URL or file upload
+- **Auto-generated Categories** from database
+- **SEO Optimized** with meta tags
+- **Responsive Design** for all devices
+- **Modern UI** with glassmorphism and animations
 
-## React Compiler
+## 🛠️ Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Frontend**: React 19, Vite, Tailwind CSS 4, Framer Motion
+- **Backend**: Supabase (PostgreSQL, Auth, Storage)
+- **Routing**: React Router DOM
+- **Icons**: Lucide React
+- **SEO**: React Helmet Async
 
-## Expanding the ESLint configuration
+## 📦 Installation
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+# Clone repository
+git clone <your-repo-url>
+cd ProjectSuite
+
+# Install dependencies
+npm install
+
+# Set up environment variables
+# Create .env file with:
+# VITE_SUPABASE_URL=your_supabase_url
+# VITE_SUPABASE_ANON_KEY=your_supabase_key
+
+# Run development server
+npm run dev
+
+# Build for production
+npm run build
+```
+
+## 🗄️ Database Setup
+
+Create a `projects` table in Supabase:
+
+```sql
+CREATE TABLE projects (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  title TEXT NOT NULL,
+  category TEXT NOT NULL,
+  description TEXT NOT NULL,
+  techstack TEXT[] NOT NULL,
+  image TEXT,
+  demolink TEXT,
+  codelink TEXT,
+  created_at TIMESTAMP DEFAULT NOW()
+);
+```
+
+## 🔐 Admin Access
+
+1. Navigate to `/admin`
+2. Login with Supabase credentials
+3. Manage projects through the dashboard
+
+## 📝 Usage
+
+### Adding Projects
+1. Login to admin panel
+2. Fill project details form
+3. Add image URL or upload file
+4. Submit to publish
+
+### Editing Projects
+1. Click purple "Edit" button on any project
+2. Modify fields
+3. Click "Update Project"
+
+### Categories
+- Categories auto-generate from projects
+- Add custom categories via "Other" option
+- Filters update automatically
+
+## 🎨 Design Features
+
+- Glassmorphism effects
+- Smooth animations with Framer Motion
+- Gradient accents
+- Responsive grid layouts
+- Modern color palette
+
+## 📱 Pages
+
+- **Home**: Landing page
+- **Projects**: Gallery with filters
+- **Project Detail**: Individual project view
+- **Admin Login**: Secure authentication
+- **Admin Dashboard**: Content management
+- **About/Services/Contact**: Additional pages
+
+## 🔒 Security
+
+- Supabase authentication
+- Protected admin routes
+- Row Level Security (RLS)
+- Secure file uploads
+
+## 📄 License
+
+MIT License - feel free to use for personal or commercial projects
+
+## 🤝 Contributing
+
+Contributions welcome! Please open an issue or submit a pull request.
+
+## 📧 Contact
+
+For questions or support, please open an issue on GitHub.
+
+---
+
+Built with ❤️ using React and Supabase

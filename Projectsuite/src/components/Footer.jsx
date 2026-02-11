@@ -29,6 +29,7 @@ const NewsletterForm = () => {
                 .from('newsletter_subscribers')
                 .insert([
                     {
+                        id: crypto.randomUUID(), // Explicitly generate ID to avoid null constraint violation
                         email: email.toLowerCase().trim(),
                         // Additional fields like ip_address and user_agent are optional/handled by DB defaults or omitted for client-side privacy
                     }

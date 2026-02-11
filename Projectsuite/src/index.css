@@ -1,0 +1,100 @@
+@import "tailwindcss";
+
+@layer utilities {
+    .glass {
+        @apply bg-white/70 backdrop-blur-xl border-b border-white/20 shadow-sm;
+    }
+
+    .glass-card {
+        @apply bg-white/60 backdrop-blur-lg border border-white/30 shadow-lg hover:shadow-xl transition-all duration-300;
+    }
+
+    .container-custom {
+        @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    }
+
+    .text-gradient {
+        @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600;
+    }
+
+    .text-gradient-dark {
+        @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-800 via-purple-800 to-pink-800;
+    }
+
+    .card-hover {
+        @apply transition-all duration-300 hover:shadow-2xl hover:-translate-y-2;
+    }
+
+    .font-heading {
+        font-family: 'Outfit', sans-serif;
+    }
+
+    .font-body {
+        font-family: 'Inter', sans-serif;
+    }
+}
+
+body {
+    @apply antialiased text-gray-900 bg-gray-50;
+    font-family: 'Inter', sans-serif;
+    background-image:
+        radial-gradient(at 0% 0%, hsla(253, 16%, 7%, 0) 0, hsla(253, 16%, 7%, 0) 50%),
+        radial-gradient(at 50% 0%, hsla(225, 39%, 30%, 0) 0, hsla(225, 39%, 30%, 0) 50%),
+        radial-gradient(at 100% 0%, hsla(339, 49%, 30%, 0) 0, hsla(339, 49%, 30%, 0) 50%);
+    background-size: 100% 100%;
+    background-attachment: fixed;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, #3b82f6, #8b5cf6);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(to bottom, #2563eb, #7c3aed);
+}
+
+/* Blob Animation */
+@keyframes blob {
+    0% {
+        transform: translate(0px, 0px) scale(1);
+    }
+
+    33% {
+        transform: translate(30px, -50px) scale(1.1);
+    }
+
+    66% {
+        transform: translate(-20px, 20px) scale(0.9);
+    }
+
+    100% {
+        transform: translate(0px, 0px) scale(1);
+    }
+}
+
+.animate-blob {
+    animation: blob 7s infinite;
+}
+
+.animation-delay-2000 {
+    animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+    animation-delay: 4s;
+}
+
+/* Selection Color */
+::selection {
+    @apply bg-blue-500/30 text-blue-900;
+}

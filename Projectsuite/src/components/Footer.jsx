@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Github, Linkedin, Twitter, Mail, ArrowRight, Heart, CheckCircle, XCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { supabase } from '../lib/supabase';
 import logo from '../assets/logo_crop.png';
 
 // Newsletter Form Component
@@ -23,25 +24,32 @@ const NewsletterForm = () => {
         setMessage(null);
 
         try {
-            const response = await fetch('http://localhost:3001/api/subscribe', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email }),
-            });
+            // Direct Supabase insertion
+            const { error } = await supabase
+                .from('newsletter_subscribers')
+                .insert([
+                    {
+                        email: email.toLowerCase().trim(),
+                        // Additional fields like ip_address and user_agent are optional/handled by DB defaults or omitted for client-side privacy
+                    }
+                ]);
 
-            const data = await response.json();
-
-            if (response.ok) {
-                setMessage({ type: 'success', text: data.message });
-                setEmail('');
+            if (error) {
+                // Check for duplicate email (Postgres unique violation code 23505)
+                if (error.code === '23505') {
+                    setMessage({ type: 'error', text: 'This email is already subscribed!' });
+                } else {
+                    console.error('Supabase error:', error);
+                    setMessage({ type: 'error', text: 'Failed to subscribe. Please try again.' });
+                }
             } else {
-                setMessage({ type: 'error', text: data.message });
+                setMessage({ type: 'success', text: 'Successfully subscribed!' });
+                setEmail('');
             }
+
         } catch (error) {
             console.error('Subscription error:', error);
-            setMessage({ type: 'error', text: 'Failed to connect. Please try again.' });
+            setMessage({ type: 'error', text: 'An unexpected error occurred.' });
         } finally {
             setLoading(false);
             setTimeout(() => setMessage(null), 5000);

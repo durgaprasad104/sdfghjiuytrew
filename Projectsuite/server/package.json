@@ -1,1 +1,17 @@
-12345
+{
+    "name": "newsletter-backend",
+    "version": "1.0.0",
+    "description": "Backend server for newsletter subscription",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js",
+        "dev": "node index.js"
+    },
+    "dependencies": {
+        "express": "^4.18.2",
+        "nodemailer": "^6.9.7",
+        "@supabase/supabase-js": "^2.39.0",
+        "cors": "^2.8.5",
+        "dotenv": "^16.3.1"
+    }
+}

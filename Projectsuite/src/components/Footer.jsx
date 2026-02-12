@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Github, Linkedin, Twitter, Mail, ArrowRight, Heart, CheckCircle, XCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { supabase } from '../lib/supabase';
+
 import logo from '../assets/logo_crop.png';
 
 // Newsletter Form Component
@@ -24,7 +24,7 @@ const NewsletterForm = () => {
         setMessage(null);
 
         try {
-            const response = await fetch('/.netlify/functions/subscribe', {
+            const response = await fetch('/subscribe', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

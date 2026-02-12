@@ -311,6 +311,68 @@ const AdminDashboard = () => {
                     </div>
                 </div>
 
+                {/* Statistics Dashboard */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    {/* Total Projects */}
+                    <div className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl shadow-lg p-6 text-white">
+                        <div className="flex items-center justify-between mb-2">
+                            <h3 className="text-sm font-medium opacity-90">Total Projects</h3>
+                            <FolderOpen className="w-8 h-8 opacity-50" />
+                        </div>
+                        <p className="text-4xl font-bold">{projects.length}</p>
+                        <p className="text-sm opacity-75 mt-1">All categories</p>
+                    </div>
+
+                    {/* Projects by Category */}
+                    <div className="bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl shadow-lg p-6 text-white">
+                        <div className="flex items-center justify-between mb-2">
+                            <h3 className="text-sm font-medium opacity-90">Categories</h3>
+                            <Plus className="w-8 h-8 opacity-50" />
+                        </div>
+                        <p className="text-4xl font-bold">
+                            {new Set(projects.map(p => p.category)).size}
+                        </p>
+                        <p className="text-sm opacity-75 mt-1">Unique project types</p>
+                    </div>
+
+                    {/* Recent Activity */}
+                    <div className="bg-gradient-to-br from-pink-500 to-pink-600 rounded-2xl shadow-lg p-6 text-white">
+                        <div className="flex items-center justify-between mb-2">
+                            <h3 className="text-sm font-medium opacity-90">Latest Addition</h3>
+                            <Edit className="w-8 h-8 opacity-50" />
+                        </div>
+                        <p className="text-2xl font-bold truncate">
+                            {projects.length > 0 ? projects[0].title : 'No projects'}
+                        </p>
+                        <p className="text-sm opacity-75 mt-1">
+                            {projects.length > 0 ? new Date(projects[0].created_at).toLocaleDateString() : 'N/A'}
+                        </p>
+                    </div>
+                </div>
+
+                {/* Quick Insights */}
+                {projects.length > 0 && (
+                    <div className="bg-white rounded-2xl shadow-lg p-6 mb-8 border border-gray-100">
+                        <h2 className="text-xl font-bold text-gray-900 mb-4">Quick Insights</h2>
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            {Object.entries(
+                                projects.reduce((acc, project) => {
+                                    acc[project.category] = (acc[project.category] || 0) + 1;
+                                    return acc;
+                                }, {})
+                            )
+                                .sort(([, a], [, b]) => b - a)
+                                .slice(0, 4)
+                                .map(([category, count]) => (
+                                    <div key={category} className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-4 border border-gray-200">
+                                        <p className="text-2xl font-bold text-gray-900">{count}</p>
+                                        <p className="text-sm text-gray-600 truncate">{category}</p>
+                                    </div>
+                                ))}
+                        </div>
+                    </div>
+                )}
+
                 {/* Add Project Form */}
                 <div className="bg-white rounded-2xl shadow-lg p-8 mb-8 border border-gray-100">
                     <div className="flex justify-between items-center mb-6">

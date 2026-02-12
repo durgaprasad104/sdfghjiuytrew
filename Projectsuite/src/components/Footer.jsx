@@ -24,33 +24,30 @@ const NewsletterForm = () => {
         setMessage(null);
 
         try {
-            // Direct Supabase insertion
-            const { error } = await supabase
-                .from('newsletter_subscribers')
-                .insert([
-                    {
-                        id: crypto.randomUUID(), // Explicitly generate ID to avoid null constraint violation
-                        email: email.toLowerCase().trim(),
-                        // Additional fields like ip_address and user_agent are optional/handled by DB defaults or omitted for client-side privacy
-                    }
-                ]);
+            const response = await fetch('/.netlify/functions/subscribe', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email }),
+            });
 
-            if (error) {
-                // Check for duplicate email (Postgres unique violation code 23505)
-                if (error.code === '23505') {
+            const data = await response.json();
+
+            if (!response.ok) {
+                if (response.status === 409) {
                     setMessage({ type: 'error', text: 'This email is already subscribed!' });
                 } else {
-                    console.error('Supabase error:', error);
-                    setMessage({ type: 'error', text: 'Failed to subscribe. Please try again.' });
+                    throw new Error(data.message || 'Failed to subscribe');
                 }
             } else {
-                setMessage({ type: 'success', text: 'Successfully subscribed!' });
+                setMessage({ type: 'success', text: 'Successfully subscribed! Check your email.' });
                 setEmail('');
             }
 
         } catch (error) {
             console.error('Subscription error:', error);
-            setMessage({ type: 'error', text: 'An unexpected error occurred.' });
+            setMessage({ type: 'error', text: error.message || 'An unexpected error occurred.' });
         } finally {
             setLoading(false);
             setTimeout(() => setMessage(null), 5000);

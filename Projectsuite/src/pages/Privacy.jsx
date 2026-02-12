@@ -54,33 +54,40 @@ const Privacy = () => {
     ];
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-50 via-purple-50 to-pink-50">
+        <div className="min-h-screen pb-20 pt-20 overflow-hidden relative">
+            {/* Background elements */}
+            <div className="absolute top-0 right-0 -z-10 w-[50vw] h-[50vw] bg-blue-400/20 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-0 left-0 -z-10 w-[50vw] h-[50vw] bg-purple-400/20 rounded-full blur-3xl"></div>
+
             {/* Hero Section */}
-            <div className="relative overflow-hidden bg-gradient-to-r from-purple-600 to-pink-600 py-20">
-                <div className="absolute inset-0 bg-grid-white/10"></div>
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="container-custom relative z-10"
-                >
-                    <div className="max-w-3xl mx-auto text-center text-white">
-                        <motion.div
-                            initial={{ scale: 0 }}
-                            animate={{ scale: 1 }}
-                            transition={{ delay: 0.2 }}
-                            className="inline-block p-3 bg-white/10 backdrop-blur-sm rounded-2xl mb-6"
-                        >
-                            <Shield className="w-12 h-12" />
-                        </motion.div>
-                        <h1 className="text-5xl md:text-6xl font-bold mb-6 font-heading">Privacy Policy</h1>
-                        <p className="text-xl text-purple-100 leading-relaxed mb-4">
-                            Your privacy is important to us. This policy explains how we collect, use, and protect your information.
-                        </p>
-                        <p className="text-sm text-purple-200">
-                            Last updated: {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-                        </p>
-                    </div>
-                </motion.div>
+            <div className="relative py-20">
+                <div className="container-custom text-center">
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="inline-block mb-6 px-4 py-1.5 rounded-full bg-blue-100 border border-blue-200 text-blue-700 font-semibold font-heading text-sm"
+                    >
+                        Your Privacy Matters
+                    </motion.div>
+                    <motion.h1
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="text-5xl md:text-7xl font-bold mb-8 font-heading text-gray-900"
+                    >
+                        Privacy <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Policy</span>
+                    </motion.h1>
+                    <motion.p
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.2 }}
+                        className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-4"
+                    >
+                        Your privacy is important to us. This policy explains how we collect, use, and protect your information.
+                    </motion.p>
+                    <p className="text-sm text-gray-500">
+                        Last updated: {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                    </p>
+                </div>
             </div>
 
             <div className="container-custom py-20">
@@ -91,9 +98,9 @@ const Privacy = () => {
                     viewport={{ once: true }}
                     className="max-w-4xl mx-auto mb-16"
                 >
-                    <div className="bg-gradient-to-br from-purple-50 to-pink-50 border-l-4 border-purple-600 rounded-r-2xl p-8 shadow-lg">
+                    <div className="bg-gradient-to-br from-blue-50 to-purple-50 border-l-4 border-blue-600 rounded-r-2xl p-8 shadow-lg">
                         <div className="flex items-start gap-4">
-                            <AlertCircle className="w-6 h-6 text-purple-600 flex-shrink-0 mt-1" />
+                            <AlertCircle className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
                             <div>
                                 <h2 className="text-2xl font-bold text-gray-900 mb-3">Introduction</h2>
                                 <p className="text-gray-700 leading-relaxed">

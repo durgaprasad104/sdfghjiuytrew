@@ -7,18 +7,18 @@ const About = () => {
     const features = [
         {
             icon: <Code className="w-6 h-6" />,
-            title: "Full-Stack Development",
-            description: "End-to-end web and mobile solutions using cutting-edge technologies"
+            title: "Complete Project Development",
+            description: "Full project setup from scratch to deployment with clean, documented code"
         },
         {
             icon: <Palette className="w-6 h-6" />,
-            title: "UI/UX Design",
-            description: "Beautiful, intuitive interfaces that users love to interact with"
+            title: "Documentation Support",
+            description: "Optional comprehensive documentation perfect for academic submissions and presentations"
         },
         {
             icon: <Cloud className="w-6 h-6" />,
-            title: "Cloud Solutions",
-            description: "Scalable deployment and infrastructure management"
+            title: "Smart Tool Integration",
+            description: "Free tools (Netlify, Vercel, Supabase) and paid options to fit your budget"
         }
     ];
 
@@ -29,30 +29,37 @@ const About = () => {
     ];
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-purple-50">
+        <div className="min-h-screen pb-20 pt-20 overflow-hidden relative">
+            {/* Background elements */}
+            <div className="absolute top-0 right-0 -z-10 w-[50vw] h-[50vw] bg-blue-400/20 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-0 left-0 -z-10 w-[50vw] h-[50vw] bg-purple-400/20 rounded-full blur-3xl"></div>
+
             {/* Hero Section */}
-            <div className="relative overflow-hidden bg-gradient-to-r from-blue-600 to-purple-600 py-20">
-                <div className="absolute inset-0 bg-grid-white/10"></div>
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="container-custom relative z-10"
-                >
-                    <div className="max-w-3xl mx-auto text-center text-white">
-                        <motion.div
-                            initial={{ scale: 0 }}
-                            animate={{ scale: 1 }}
-                            transition={{ delay: 0.2 }}
-                            className="inline-block p-3 bg-white/10 backdrop-blur-sm rounded-2xl mb-6"
-                        >
-                            <Users className="w-12 h-12" />
-                        </motion.div>
-                        <h1 className="text-5xl md:text-6xl font-bold mb-6 font-heading">About Us</h1>
-                        <p className="text-xl text-blue-100 leading-relaxed">
-                            We're a passionate team of developers and designers crafting digital experiences that make a difference
-                        </p>
-                    </div>
-                </motion.div>
+            <div className="relative py-20">
+                <div className="container-custom text-center">
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="inline-block mb-6 px-4 py-1.5 rounded-full bg-blue-100 border border-blue-200 text-blue-700 font-semibold font-heading text-sm"
+                    >
+                        Our Story
+                    </motion.div>
+                    <motion.h1
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="text-5xl md:text-7xl font-bold mb-8 font-heading text-gray-900"
+                    >
+                        About <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Us</span>
+                    </motion.h1>
+                    <motion.p
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.2 }}
+                        className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
+                    >
+                        Empowering students with innovative project solutions delivered fast, with comprehensive documentation
+                    </motion.p>
+                </div>
             </div>
 
             <div className="container-custom py-20">
@@ -71,13 +78,13 @@ const About = () => {
                             <h2 className="text-3xl font-bold text-gray-900">Our Mission</h2>
                         </div>
                         <p className="text-lg text-gray-600 leading-relaxed mb-4">
-                            To deliver high-quality, scalable, and user-friendly digital products that solve real-world problems
-                            and exceed client expectations. We believe in continuous learning and staying up-to-date with the
-                            latest technologies to provide cutting-edge solutions.
+                            To deliver exceptional student projects quickly and affordably using smart technology choices.
+                            We specialize in building complete project solutions—from scratch to deployment—using both free
+                            and paid tools tailored to your requirements and budget.
                         </p>
                         <p className="text-lg text-gray-600 leading-relaxed">
-                            Every project we undertake is an opportunity to push boundaries, challenge conventions, and create
-                            something truly remarkable.
+                            Whether you need a simple website or a complex application, we provide full source code,
+                            internet deployment, and optional comprehensive documentation perfect for academic submissions.
                         </p>
                     </div>
                 </motion.div>
@@ -160,9 +167,9 @@ const About = () => {
                 >
                     <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl p-12 text-center text-white shadow-2xl">
                         <Mail className="w-16 h-16 mx-auto mb-6 opacity-90" />
-                        <h2 className="text-3xl md:text-4xl font-bold mb-4">Let's Work Together</h2>
+                        <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Start Your Project?</h2>
                         <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-                            Have a project in mind? We'd love to hear about it and discuss how we can help bring your vision to life.
+                            Get your project delivered in 3-7 days with source code, deployment, and optional documentation support.
                         </p>
                         <Link
                             to="/contact"

@@ -1,13 +1,11 @@
-const nodemailer = require('nodemailer');
-const { createClient } = require('@supabase/supabase-js');
-require('dotenv').config();
+import nodemailer from 'nodemailer';
+import { createClient } from '@supabase/supabase-js';
+import crypto from 'crypto';
+import dotenv from 'dotenv';
 
-// Initialize Supabase Client
-const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseKey = process.env.SUPABASE_ANON_KEY;
-const supabase = createClient(supabaseUrl, supabaseKey);
+dotenv.config();
 
-// Create Gmail Transporter
+// Create Gmail Transporter (do this outside handler to reuse connection)
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -16,12 +14,29 @@ const transporter = nodemailer.createTransport({
     },
 });
 
-exports.handler = async (event, context) => {
+export const handler = async (event, context) => {
     // Only allow POST requests
     if (event.httpMethod !== 'POST') {
         return {
             statusCode: 405,
             body: JSON.stringify({ message: 'Method Not Allowed' }),
+        };
+    }
+
+    // Initialize Supabase Client inside handler to ensure env vars are available
+    // and to catch initialization errors gracefully
+    let supabase;
+    try {
+        if (!process.env.SUPABASE_URL || !process.env.SUPABASE_ANON_KEY) {
+            console.error('Missing Supabase Environment Variables');
+            throw new Error('Server configuration error: Missing Supabase credentials');
+        }
+        supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_ANON_KEY);
+    } catch (initError) {
+        console.error('Supabase Initialization Error:', initError);
+        return {
+            statusCode: 500,
+            body: JSON.stringify({ message: 'Server Configuration Error: ' + initError.message }),
         };
     }
 
@@ -51,7 +66,7 @@ exports.handler = async (event, context) => {
 
         if (dbError) {
             if (dbError.code === '23505') { // Duplicate email
-                 return {
+                return {
                     statusCode: 409,
                     body: JSON.stringify({ message: 'Email already subscribed' }),
                 };
